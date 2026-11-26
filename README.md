@@ -1,4 +1,8 @@
-# issoaquilo
+# ISSOAQUILO
+
+Aluno: Nathan de Souza
+1ª Fase ADS
+
 Projeto avaliação 3 - Prática de Programação Web / Faculdade Municipal de Palhoça
 
 Projeto ISSOAQUILO: Site de quiz interativo de comparação entre temas e curiosidades específicas do Brasil. O usuário deverá escolher entre as duas informações apresentadas e descobrir qual delas possui o MAIOR VALOR.
