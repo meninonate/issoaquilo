@@ -1,0 +1,86 @@
+/* Fonte Montserrat (alternativa gratuita à Gotham) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* O body agora faz o papel da antiga .tela: coluna centralizada na tela inteira */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  background: #152c1f;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px 24px 64px; /* cima direita baixo esquerda */
+}
+
+/* ---------- LOGO ---------- */
+/* "body > img" = só a imagem que está direto dentro do body (a logo) */
+body > img {
+  position: relative;
+  bottom: 100px;
+  display: block;
+  width: 600px;  /* aumenta o tamanho */
+  height: auto;
+}
+
+/* ---------- MENU ---------- */
+nav {
+  position: relative;
+  top: -34px;
+  display: grid;
+  grid-template-columns: repeat(2, 230px);
+  gap: 34px 44px;
+}
+
+/* "nav a" = os links (botões) dentro do menu */
+nav a {
+  height: 91px;
+  background: #ffffff;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #08150e;
+  font-size: 29px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+nav a:hover {
+  background: #d9d9d9;     /* fundo mais escuro que o branco */
+  transform: scale(1.06);  /* aumenta 6% */
+}
+
+nav a img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+footer {
+  position: absolute;
+  bottom: 16px; /* distância da borda de baixo */
+  left: 0;
+  right: 0;
+  color: #ffffff;
+  font-size: 13.5px;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  nav {
+    grid-template-columns: minmax(0, 230px);
+  }
+}

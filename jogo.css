@@ -1,0 +1,213 @@
+/* =====================================================================
+   CSS DOS JOGOS (Tempo e Quantidade usam este mesmo arquivo)
+   Só controla a APARÊNCIA. O funcionamento fica no tempo.js / quantidade.js.
+
+   COMO LER O CSS:   seletor { propriedade: valor; }
+   - seletor: QUEM recebe o estilo
+       img         = todas as imagens          #opcoes = elemento com id="opcoes"
+       button      = todos os botões           #opcoes button = botões DENTRO de #opcoes
+       ::after     = um "elemento invisível" criado pelo CSS (usado no "OU")
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+/* A UNIDADE "u": 1u = 1px numa tela 1920x1080 (igual ao Figma) e encolhe
+   junto com a janela. Exemplo: calc(573 * var(--u)) = "573px do Figma". */
+:root {
+  --u: min(calc(100vw / 1920), calc(100vh / 1080));
+}
+
+/* Em telas estreitas (celular) a base passa a ser a largura de 1400px. */
+@media (max-width: 900px) {
+  :root {
+    --u: calc(100vw / 1400);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Elementos com o atributo "hidden" somem de verdade. */
+[hidden] {
+  display: none !important;
+}
+
+/* O body é a coluna central onde ficam todos os elementos da página,
+   um embaixo do outro. position: relative serve de base para o rodapé. */
+body {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(37 * var(--u));  /* espaço entre o topo e o logo */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  background: #152c1f;
+}
+
+img {
+  display: block;
+  width: calc(582 * var(--u));
+  height: auto;
+}
+
+/* ---------- AS DUAS CURIOSIDADES ----------
+   #opcoes é uma grade de 2 colunas e 2 linhas:
+     linha 1: os dois botões (os cartões brancos)
+     linha 2: os dois <p> (tempo/número que aparece depois do clique) */
+#opcoes {
+  position: relative;  /* base para o círculo "OU" */
+  display: grid;
+  grid-template-columns: calc(573 * var(--u)) calc(573 * var(--u));
+  grid-template-rows: calc(565 * var(--u)) calc(60 * var(--u));
+  column-gap: calc(124 * var(--u));
+  row-gap: calc(18 * var(--u));
+  margin-top: calc(14 * var(--u));
+}
+
+/* O cartão branco com o texto da curiosidade */
+#opcoes button {
+  padding: calc(40 * var(--u));
+  background: #ffffff;
+  color: #08150e;
+  border: none;
+  border-radius: calc(56 * var(--u));
+  font: inherit;
+  font-size: max(12px, calc(44 * var(--u)));
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+/* Hover só enquanto o botão ainda pode ser clicado */
+#opcoes button:not(:disabled):hover {
+  background: #d9d9d9;
+  transform: scale(1.03);
+}
+
+#opcoes button:disabled {
+  cursor: default;
+}
+
+/* Cores colocadas pelo JS depois de revelar o valor */
+#opcoes button.correta {
+  background: #3ddc84;
+}
+
+#opcoes button.errada {
+  background: #ff5c5c;
+}
+
+/* O tempo / número embaixo de cada cartão */
+#opcoes p {
+  text-align: center;
+  color: #ffffff;
+  font-size: max(14px, calc(32 * var(--u)));
+  line-height: 1.2;
+}
+
+/* O círculo "OU" no meio: criado pelo CSS (não precisa existir no HTML).
+   A borda na cor do fundo dá o efeito de "recorte" nos cartões. */
+#opcoes::after {
+  content: 'OU';
+  position: absolute;
+  left: 50%;
+  top: calc(282 * var(--u));          /* metade da altura dos cartões */
+  transform: translate(-50%, -50%);   /* centraliza de verdade */
+  width: calc(170 * var(--u));
+  height: calc(170 * var(--u));
+  border: calc(13 * var(--u)) solid #152c1f;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #08150e;
+  font-size: max(14px, calc(44 * var(--u)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;   /* o clique atravessa o círculo */
+}
+
+/* ---------- BOTÃO "PRÓXIMA" ---------- */
+#proxima {
+  height: calc(74 * var(--u));
+  margin-top: calc(8 * var(--u));
+  padding: 0 calc(36 * var(--u));
+  background: #ffffff;
+  color: #08150e;
+  border: none;
+  border-radius: calc(20 * var(--u));
+  font: inherit;
+  font-size: max(14px, calc(40 * var(--u)));
+  cursor: pointer;
+}
+
+#proxima:hover,
+#voltar:hover {
+  background: #d9d9d9;
+  transform: scale(1.06);
+}
+
+/* Mensagem de erro (só aparece se o perguntas.json não carregar).
+   :empty = "quando não tem nada escrito": some e não ocupa espaço. */
+#resultado {
+  margin-top: calc(20 * var(--u));
+  color: #ffffff;
+  font-size: max(14px, calc(24 * var(--u)));
+  text-align: center;
+}
+
+#resultado:empty {
+  display: none;
+}
+
+/* ---------- TELA FINAL (pontuação) ---------- */
+/* Círculo branco com a nota (ex.: 5/5) */
+#nota {
+  margin-top: calc(133 * var(--u));
+  width: calc(218 * var(--u));
+  height: calc(218 * var(--u));
+  border: calc(9 * var(--u)) solid #08150e;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #08150e;
+  font-size: max(16px, calc(74 * var(--u)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#rotulo {
+  margin-top: calc(18 * var(--u));
+  color: #ffffff;
+  font-size: max(16px, calc(50 * var(--u)));
+  line-height: 1.2;
+}
+
+/* "Voltar" é um link (<a>) com aparência de botão */
+#voltar {
+  margin-top: calc(131 * var(--u));
+  width: calc(188 * var(--u));
+  height: calc(74 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #08150e;
+  border-radius: calc(20 * var(--u));
+  text-decoration: none;
+  font-size: max(14px, calc(40 * var(--u)));
+}
+
+/* ---------- RODAPÉ ---------- */
+footer {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  color: #ffffff;
+  font-size: 13.5px;
+  text-align: center;
+}
